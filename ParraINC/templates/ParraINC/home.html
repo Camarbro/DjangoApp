@@ -1,0 +1,126 @@
+{% extends 'base_inc.html' %}
+{% block title %}Home {% endblock %}
+{% block navigation%}
+<li class="sidebar-brand">
+    <a href="#top"  onclick = $("#menu-close").click(); >HOME</a>
+</li>
+<li>
+    <a href="#top" onclick = $("#menu-close").click(); >Home</a>
+</li>
+<li>
+  {% if user.is_authenticated%}
+    <a href="{% url 'logout' %}" onclick = $("#menu-close").click(); >Log Out</a>
+  {% else %}
+    <a href="{% url 'login' %}" onclick = $("#menu-close").click(); >Log In</a>
+  {% endif %}
+</li>
+<li>
+    <a href="#services" onclick = $("#menu-close").click(); >Options</a>
+</li>
+</li>
+{% endblock %}
+{% block content %}
+<!-- Header -->
+<header id="top" class="header">
+    <div class="text-vertical-center">
+        <h1 style="color: #fff;">Parra Incorporated</h1>
+        <h3 style="color: #fff;">Company Administration Site</h3>
+        {% if user.is_authenticated %}
+        <h3 style="color: #fff;">Welcome {{ user.username }}</h3>
+        {% endif %}
+        <br>
+        <a href="#LogIn" class="btn btn-dark btn-lg">Accions</a>
+    </div>
+</header>
+<!-- About -->
+<section id="LogIn" class="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2>ParraINC Administration Site</h2>
+                <p class="lead">Bellow there's a list of options you can perform in the site . {% if user.is_anonymous %}But Fist Please <a href="{% url 'login' %}">Log In{% endif %}</a>
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+</section>
+
+<!-- Services -->
+<!-- The circle icons use Font Awesome's stacked icon classes. For more information, visit http://fontawesome.io/examples/ -->
+<section id="services" class="services bg-primary">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-lg-10 col-lg-offset-1">
+                <h2>Options</h2>
+                <hr class="small">
+                <div class="row">
+                    <div class="col-md-3 col-sm-6">
+                        <div class="service-item">
+                            <span class="fa-stack fa-4x">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-users fa-stack-1x text-primary"></i>
+                        </span>
+                            <h4>
+                                <strong>User Registration</strong>
+                            </h4>
+                            <p>For new users </p>
+                            <a href="{% url 'SignUp' %}" class="btn btn-light">Click Here</a>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="service-item">
+                            <span class="fa-stack fa-4x">
+                              <i class="fa fa-circle fa-stack-2x"></i>
+                              <i class="fa fa-cogs fa-stack-1x text-primary"></i>
+                            </span>
+                            <h4>
+                                <strong>Request Order</strong>
+                            </h4>
+                            <p>Start a new order</p>
+                            {% if user.is_authenticated %}
+                            <a href="{% url 'Order_New_view'%}" class="btn btn-light">Click Here</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="service-item">
+                            <span class="fa-stack fa-4x">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa fa-check-square fa-stack-1x text-primary"></i>
+                        </span>
+                            <h4>
+                                <strong>Quality Center</strong>
+                            </h4>
+                            <p>Quality Options for Supervisors</p>
+                            {% if user.is_authenticated %}
+                            <a href="{% url 'quality_view' %}" class="btn btn-light">Click Here</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="service-item">
+                            <span class="fa-stack fa-4x">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-file-text fa-stack-1x text-primary"></i>
+                        </span>
+                            <h4>
+                                <strong>Reports</strong>
+                            </h4>
+                            <p>Report Seccction for the Bauss</p>
+                            {% if user.is_authenticated %}
+                            <a href="{% url 'reports_view' %}" class="btn btn-light">Click Here</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row (nested) -->
+            </div>
+            <!-- /.col-lg-10 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+</section>
+
+{% endblock %}

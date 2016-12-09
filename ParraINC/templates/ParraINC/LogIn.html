@@ -1,0 +1,37 @@
+{% extends 'base_inc.html' %}
+{% block title %}SignUp{% endblock %}
+{% block navigation %}
+<li class="sidebar-brand">
+    <a href="{% url 'home_view' %}"  onclick = $("#menu-close").click(); > Home </a>
+</li>
+<li>
+    <a href="{% url 'login' %}" onclick = $("#menu-close").click(); >Log In</a>
+</li>
+{% endblock %}
+{%block content%}
+<section class="services bg-primary">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2>Log In</h2>
+                <p class="lead">Please enter your credencials </p>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="about">
+  <div class="container">
+    {% if form.errors %}
+      <p class="error">Sorry, that's not a valid username or password</p>
+    {% endif %}
+    <form action="" method="post">{% csrf_token %}
+      <label for="username">User name:</label>
+      <input type="text" name="username" value="" id="username">
+      <label for="password">Password:</label>
+      <input type="password" name="password" value="" id="password">
+      <input type="submit" value="login" />
+      <input type="hidden" name="next" value="{{ next|escape }}" />
+    </form>
+  </div>
+</section>
+{% endblock %}

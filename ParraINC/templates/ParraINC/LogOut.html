@@ -1,0 +1,22 @@
+{% extends 'base_inc.html' %}
+{% block title %}SignUp{% endblock %}
+{% block navigation %}
+<li class="sidebar-brand">
+    <a href="{% url 'home_view' %}"  onclick = $("#menu-close").click(); > Home </a>
+</li>
+<li>
+    <a href="{% url 'login'%}" onclick = $("#menu-close").click(); >Log In</a>
+</li>
+{% endblock %}
+{%block content%}
+<section class="services bg-primary">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2>Session Cerrada</h2>
+                <p class="lead">Gracias por su Visita </p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

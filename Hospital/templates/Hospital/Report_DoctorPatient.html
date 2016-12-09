@@ -1,0 +1,67 @@
+{% extends 'base_hospital.html' %}
+{% block title %} Reporte Doctor {% endblock %}
+{% block content %}
+<section class="global-page-header">
+		<div class="container">
+				<div class="row">
+						<div class="col-md-12">
+								<div class="block">
+										<h2>Reporte Doctor - Pacientes</h2>
+										<ol class="breadcrumb">
+												<li>
+														<a href="index.html">
+																<i class="ion-ios-home"></i>
+																Home
+														</a>
+												</li>
+												<li class="active">Reporte Doctor - Pacientes</li>
+										</ol>
+								</div>
+						</div>
+				</div>
+		</div>
+</section>
+
+<section class="company-description">
+	<div class="container" style = "margin-bottom: 35px;">
+		<div class="row">
+      <table class= "table table-striped">
+    		<tr>
+    			<th>Id Doctor</th>
+    			<th>Nombre Doctor</th>
+    			<th>Empecialidad </th>
+          <th>Consultorio</th>
+    			<th>Turno</th>
+          <th>Pacientes </th>
+    		</tr>
+    		{% for item in object_list %}
+    		<tr>
+    			<td>{{ item.doctor_id }}</td>
+    			<td>{{ item.doctor_name }}</td>
+          <td>
+    				{% for p in item.doctor_speciality.all %}
+    				{{ p.speciality_branch }}
+    				{% endfor %}
+    			</td>
+          <td>
+    				{% for p in item.consultorio.all %}
+    				{{ p.consultorio_name }}
+    				{% endfor %}
+    			</td>
+    			<td>{{ item.doctor_shift }}
+    			<td>
+    				{% for p in item.Paciente.all %}
+    				{{ p.paciente_name }}
+    				{% endfor %}
+    			</td>
+    		</tr>
+    		{% endfor %}
+    	</table>
+		</div>
+	</div>
+</section>
+
+
+<section id="call-to-action">
+</section>
+{% endblock %}

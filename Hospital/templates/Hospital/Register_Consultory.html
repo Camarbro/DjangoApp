@@ -1,0 +1,41 @@
+{% extends 'base_hospital.html' %}
+{% block title %} Registrar Consultorio {% endblock %}
+{% block content %}
+<section class="global-page-header">
+		<div class="container">
+				<div class="row">
+						<div class="col-md-12">
+								<div class="block">
+										<h2>Registro Consultorio</h2>
+										<ol class="breadcrumb">
+												<li>
+														<a href="index.html">
+																<i class="ion-ios-home"></i>
+																Home
+														</a>
+												</li>
+												<li class="active">Registro Consultorio</li>
+										</ol>
+								</div>
+						</div>
+				</div>
+		</div>
+</section>
+
+<section class="company-description">
+	<div class="container" style = "margin-bottom: 35px;">
+		<div class="row">
+			<form method = "POST">
+				{% csrf_token %}
+				{{ form.as_p }}
+				<input type = "submit" value = "Register">
+				<input type = "reset" value = "Cancel">
+			</form>
+		</div>
+	</div>
+</section>
+
+
+<section id="call-to-action">
+</section>
+{% endblock %}

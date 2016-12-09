@@ -1,0 +1,279 @@
+{% extends 'base_inc.html' %}
+{% block title %} Reports {% endblock %}
+{% block navigation %}
+<li class="sidebar-brand">
+    <a href="{% url 'home_view' %}"  onclick = $("#menu-close").click(); >Home</a>
+</li>
+<li>
+    <a href="#Order" onclick = $("#menu-close").click(); >Order Report</a>
+</li>
+<li>
+    <a href="#Inventory" onclick = $("#menu-close").click(); >Inventory Report</a>
+</li>
+<li>
+    <a href="#Check" onclick = $("#menu-close").click(); >Quality Check Report</a>
+</li>
+<li>
+    <a href="#Finished" onclick = $("#menu-close").click(); >Finished Orders</a>
+</li>
+<li>
+    <a href="#Progress" onclick = $("#menu-close").click(); >Orders in progress</a>
+</li>
+<li>
+    <a href="#Employees" onclick = $("#menu-close").click(); >Employees per Area</a>
+</li>
+{% endblock %}
+{%block content %}
+<!-- Callout -->
+<aside class="callout">
+    <div class="text-vertical-center">
+        <h1>Report Center</h1>
+    </div>
+</aside>
+
+<!-- Reports -->
+<section id = "Order" class="portfolio">
+    <div class="container">
+        <div class="row">
+            <div id = "1" class="col-lg-10 col-lg-offset-1 text-center">
+                <h2>Order Report</h2>
+                <hr class="small">
+                <table class= "table table-striped">
+                  <tr>
+                    <th>Id Order</th>
+                    <th>Area</th>
+                    <th>Delivered By</th>
+                    <th>Recieved By</th>
+                    <th>Supervisor</th>
+                    <th>Date</th>
+                    <th>Inventory Items</th>
+                  </tr>
+                  {% for item in object_list %}
+                  <tr>
+                    <td>{{ item.numero_pedido}}</td>
+                    <td>{{ item.area }}</td>
+                    <td>{{ item.entrega }}</td>
+                    <td>{{ item.recibe }}</td>
+                    <td>{{ item.jefe_linea }}</td>
+                    <td>{{ item.fecha_entrega }}</td>
+                    <td>
+                      {% for p in item.piezas.all %}
+                      {{ p.nombre_pieza }}
+                      {% endfor %}
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </table>
+            </div>
+            <!-- /.col-lg-10 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+</section>
+<section id = "Inventory" class="portfolio">
+    <div class="container">
+        <div class="row">
+            <div id = "1" class="col-lg-10 col-lg-offset-1 text-center">
+                <h2>Inventory Report</h2>
+                <hr class="small">
+                <table class= "table table-striped">
+                  <tr>
+                    <th>Id Piece</th>
+                    <th>Name</th>
+                    <th>Area</th>
+                    <th>Unit Price</th>
+                    <th>Stock</th>
+                  </tr>
+                  {% for item in Inventario %}
+                  <tr>
+                    <td>{{ item.codigo_pieza}}</td>
+                    <td>{{ item.nombre_pieza }}</td>
+                    <td>{{ item.area_pieza }}</td>
+                    <td>{{ item.precio_unitario }}</td>
+                    <td>{{ item.stock }}</td>
+                  </tr>
+                  {% endfor %}
+                </table>
+            </div>
+            <!-- /.col-lg-10 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+</section>
+<section id = "Check" class="portfolio">
+    <div class="container">
+        <div class="row">
+            <div id = "1" class="col-lg-10 col-lg-offset-1 text-center">
+                <h2>Quality Check Report</h2>
+                <hr class="small">
+                <table class= "table table-striped">
+                  <tr>
+                    <th>Id Order</th>
+                    <th>Area</th>
+                    <th>Supervisor</th>
+                    <th>Date</th>
+                    <th>Quality Check</th>
+                  </tr>
+                  {% for item in object_list %}
+                  <tr>
+                    <td>{{ item.numero_pedido}}</td>
+                    <td>{{ item.area }}</td>
+                    <td>{{ item.jefe_linea }}</td>
+                    <td>{{ item.fecha_entrega }}</td>
+                    <td>{{ item.control_calidad}}</td>
+                  </tr>
+                  {% endfor %}
+                </table>
+            </div>
+            <!-- /.col-lg-10 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+</section>
+<section id = "Finished" class="portfolio">
+    <div class="container">
+        <div class="row">
+            <div id = "1" class="col-lg-10 col-lg-offset-1 text-center">
+                <h2>Finished Orders</h2>
+                <hr class="small">
+                <table class= "table table-striped">
+                  <tr>
+                    <th>Id Order</th>
+                    <th>Area</th>
+                    <th>Supervisor</th>
+                    <th>Date</th>
+                    <th>Inventory Items</th>
+                    <th>Fished</th>
+                  </tr>
+                  {% for item in object_list %}
+                  {% if item.terminado == True %}
+                  <tr>
+                    <td>{{ item.numero_pedido}}</td>
+                    <td>{{ item.area }}</td>
+                    <td>{{ item.entrega }}</td>
+                    <td>{{ item.recibe }}</td>
+                    <td>{{ item.jefe_linea }}</td>
+                    <td>{{ item.fecha_entrega }}</td>
+                    <td>
+                      {% for p in item.piezas.all %}
+                      {{ p.nombre_pieza }}
+                      {% endfor %}
+                    </td>
+                    <td>{{ item.terminado }}</td>
+                  </tr>
+                  {% endif %}
+                  {% endfor %}
+                </table>
+            </div>
+            <!-- /.col-lg-10 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+</section>
+<section id = "Progress" class="portfolio">
+    <div class="container">
+        <div class="row">
+            <div id = "1" class="col-lg-10 col-lg-offset-1 text-center">
+                <h2>Orders in progress</h2>
+                <hr class="small">
+                <table class= "table table-striped">
+                  <tr>
+                    <th>Id Order</th>
+                    <th>Area</th>
+                    <th>Supervisor</th>
+                    <th>Date</th>
+                    <th>Inventory Items</th>
+                    <th>Progress</th>
+                  </tr>
+                  {% for item in object_list %}
+                  {% if item.terminado == False %}
+                  <tr>
+                    <td>{{ item.numero_pedido}}</td>
+                    <td>{{ item.area }}</td>
+                    <td>{{ item.entrega }}</td>
+                    <td>{{ item.recibe }}</td>
+                    <td>{{ item.jefe_linea }}</td>
+                    <td>{{ item.fecha_entrega }}</td>
+                    <td>
+                      {% for p in item.piezas.all %}
+                      {{ p.nombre_pieza }}
+                      {% endfor %}
+                    </td>
+                    <td>{{ item.terminado }}</td>
+                  </tr>
+                  {% endif %}
+                  {% endfor %}
+                </table>
+            </div>
+            <!-- /.col-lg-10 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+</section>
+<section id = "Employees" class="portfolio">
+    <div class="container">
+        <div class="row">
+            <div id = "1" class="col-lg-10 col-lg-offset-1 text-center">
+                <h2>Employees per Area</h2>
+                <hr class="small">
+                <table class= "table table-striped">
+                  <tr>
+                    <th>Nombre Empleado</th>
+                    <th>Puesto</th>
+                    <th>Area</th>
+                  </tr>
+                  {% for item in Empleado_Almacen %}
+                  <tr>
+                    <td>{{ item.nombre_empleado}}</td>
+                    <td>{{ item.puesto_empleado }}</td>
+                    <td>{{ item.area_empleado }}</td>
+                  </tr>
+                  {% endfor %}
+                  {% for item in Empleado_Jefe %}
+                  <tr>
+                    <td>{{ item.nombre_empleado}}</td>
+                    <td>{{ item.puesto_empleado }}</td>
+                    <td>{{ item.area_empleado }}</td>
+                  </tr>
+                  {% endfor %}
+                  {% for item in Empleado_Calidad %}
+                  <tr>
+                    <td>{{ item.nombre_empleado}}</td>
+                    <td>{{ item.puesto_empleado }}</td>
+                    <td>{{ item.area_empleado }}</td>
+                  </tr>
+                  {% endfor %}
+                  {% for item in Empleado_Produccion %}
+                  <tr>
+                    <td>{{ item.nombre_empleado}}</td>
+                    <td>{{ item.puesto_empleado }}</td>
+                    <td>{{ item.area_empleado }}</td>
+                  </tr>
+                  {% endfor %}
+                </table>
+            </div>
+            <!-- /.col-lg-10 -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+</section>
+
+<!-- Call to Action -->
+<aside class="call-to-action bg-primary">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h3>Go Back to Home?</h3>
+                <a href="{% url 'home_view' %}" class="btn btn-lg btn-light">Go Back!</a>
+                <a href="#top" class="btn btn-lg btn-dark"> Top!</a>
+            </div>
+        </div>
+    </div>
+</aside>
+{% endblock %}

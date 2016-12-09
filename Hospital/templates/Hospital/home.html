@@ -1,0 +1,35 @@
+{% extends 'base_hospital.html' %}
+{% block title %} Home {% endblock %}
+{% block content %}
+  <section id="hero-area" >
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <div class="block wow fadeInUp" data-wow-delay=".3s">
+            <!-- Slider -->
+              <section class="cd-intro">
+                <h1 class="wow fadeInUp animated cd-headline slide" data-wow-delay=".4s" >
+                  <span>APLICACION WEB PARA UN HOSPITAL</span><br>
+                  <span class="cd-words-wrapper">
+                    <b class="is-visible">REGISTROS</b>
+                    <b>REPORTES</b>
+                    <b>PACIENTES</b>
+                    <b>DOCTORES</b>
+                  </span>
+                </h1>
+              </section> <!-- cd-intro -->
+            <!-- /.slider -->
+            <h2 class="wow fadeInUp animated" data-wow-delay=".6s" >
+                Puedes empezar haciendo un registro
+            </h2>
+            <div style=" display: inline-block">
+              <a class="btn-lines dark light wow fadeInUp btn btn-default btn-green"  href="{% url 'Register_Doctor_view' %}" >Registro Doctor</a>
+              <a class="btn-lines dark light wow fadeInUp btn btn-default btn-green"  href="{% url 'Register_Patient_view' %}" >Registro Paciente</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section><!--/#main-slider-->
+
+{% endblock %}

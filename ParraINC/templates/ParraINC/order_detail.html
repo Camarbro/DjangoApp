@@ -1,0 +1,73 @@
+{% extends 'base_inc.html' %}
+{% block title %}Order {{order.numero_pedido }} Detail {% endblock %}
+{% block navigation %}
+<li class="sidebar-brand">
+    <a href="{% url 'home_view' %}"  onclick = $("#menu-close").click(); >Home</a>
+</li>
+<li>
+    <a href="#top" onclick = $("#menu-close").click(); >Back To Quality</a>
+</li>
+<li>
+    <a href="#LogIn" onclick = $("#menu-close").click(); >Edit This Order</a>
+</li>
+<li>
+    <a href="#services" onclick = $("#menu-close").click(); >Delete This Order</a>
+</li>
+{% endblock  %}
+
+{% block content %}
+<aside class="callout">
+    <div class="text-vertical-center">
+        <h1>Quality Center</h1>
+    </div>
+</aside>
+<section class="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2>Order Number {{ order.numero_pedido }} por {{ order.jefe_linea }}</h2>
+                <h3 class="lead">Date: {{ order.fecha_entrega }}</h3>
+                <h3 class="lead">Area: {{ order.area }}</h3>
+                <h4 class="lead">This order was requested by {{ order.recibe }} and serverd by {{ order.entrega }}</h4>
+                <h2>Order Contents</h2>
+                <table class= "table table-striped">
+                  <tr>
+                    <th>Id Piece</th>
+                    <th>Name</th>
+                    <th>Area</th>
+                    <th>Unit Price</th>
+                  </tr>
+                  {% for p in order.piezas.all %}
+                  <tr>
+                    <td>{{ p.codigo_pieza}}</td>
+                    <td>{{ p.nombre_pieza }}</td>
+                    <td>{{ p.area_pieza }}</td>
+                    <td>{{ p.precio_unitario }}</td>
+                  </tr>
+                  {% endfor %}
+                </table>
+                {% if order.control_calidad == False %}
+                <p class="lead" style="color: Red;">Quality Check is pending </p>
+                {% else %}
+                <p class="lead" style="color: Green;">Quality Completed </p>
+                <p class="lead" style="color: Green;">Ready To Finish </p>
+                {% endif %}
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+</section>
+<!-- Call to Action -->
+<aside class="call-to-action bg-primary">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h3>Order Options</h3>
+                <a href="{% url 'Order_edit_view' pk=order.pk %}" class="btn btn-lg btn-light">Edit Order</a>
+                <a href="{% url 'delete_order_view' pk=order.pk %}" class="btn btn-lg btn-dark">Delete Order</a>
+            </div>
+        </div>
+    </div>
+</aside>
+{% endblock%}

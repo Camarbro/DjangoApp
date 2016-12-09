@@ -1,0 +1,45 @@
+{% extends 'base_inc.html' %}
+{% block title %}Quality Center{% endblock %}
+{% block navigation%}
+<li class="sidebar-brand">
+    <a href="{% url 'home_view' %}"  onclick = $("#menu-close").click(); >Home</a>
+</li>
+{% for order in orders %}
+<li>
+    <a href="#{{ order.numero_pedido }}" onclick = $("#menu-close").click(); >Order No.{{ order.numero_pedido}}</a>
+</li>
+{% endfor %}
+{% endblock %}
+
+{% block content %}
+<!-- Callout -->
+<aside class="callout">
+    <div class="text-vertical-center">
+        <h1>Quality Center</h1>
+    </div>
+</aside>
+<section class="about">
+  <div class="container">
+    <div class="row text-center">
+      <h2>Current Orders</h2>
+      <hr class="small">
+    </div>
+  </div>
+</section>
+{% for order in orders %}
+<section id = "{{order.numero_pedido}}" class="about">
+    <div class="container">
+        <div class="row">
+            <div id = "1" class="col-lg-12 text-center">
+                {% if order.terminado == False or order.control_calidad == False %}
+                    <h2><a href="{% url 'ParraINC.views.Order_detail' pk=order.pk %}">Order Number {{ order.numero_pedido }} por {{ order.jefe_linea }}</a></h2>
+                    <p class="lead">Date: {{ order.fecha_entrega }}</p>
+                    <p class="lead">Area: {{ order.area }}</p>
+                {% endif %}
+                <hr class="large">
+            </div>
+          </div>
+      </div>
+</section>
+{% endfor %}
+{% endblock %}
